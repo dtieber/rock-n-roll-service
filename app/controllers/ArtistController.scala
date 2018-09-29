@@ -6,12 +6,14 @@ import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, AnyContent, ControllerComponents, Request}
 import services.ArtistService
 
+import scala.util.Random
+
 @Singleton
 class ArtistController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def index() = Action { implicit request: Request[AnyContent] =>
     val artists = ArtistService.list
-    Ok(Json.toJson(artists))
+    Ok(Json.toJson(Random.shuffle(artists)))
   }
 
 

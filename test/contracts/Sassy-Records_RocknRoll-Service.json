@@ -1,0 +1,53 @@
+{
+  "provider" : {
+    "name" : "Rock'n'Roll Service"
+  },
+  "consumer" : {
+    "name" : "Sassy Records"
+  },
+  "interactions" : [
+    {
+      "request" : {
+        "method" : "GET",
+        "path" : "/artists"
+      },
+      "description" : "Fetching all artists",
+      "response" : {
+        "status" : 200,
+        "body" : [
+          {
+            "id" : 1,
+            "name" : "My Artist Name",
+            "genre" : "Rock",
+            "avatar" : "http://images.com/artist.jpg"
+          },
+          {
+            "id" : 2,
+            "name" : "My Other Name",
+            "genre" : "Blues",
+            "avatar" : "http://images.com/artist2.jpg"
+          }
+        ],
+        "matchingRules" : {
+          "$.body.[*].name" : {
+            "match" : "regex",
+            "regex" : "[A-Za-z1-9 ]{3,}"
+          },
+          "$.body.[*].genre" : {
+            "match" : "type"
+          },
+          "$.body.[*].id" : {
+            "match" : "regex",
+            "regex" : "[1-9]+"
+          },
+          "$.body.[*].avatar" : {
+            "match" : "type"
+          },
+          "$.body." : {
+            "min" : 2
+          }
+        }
+      }
+    }
+  ]
+}
